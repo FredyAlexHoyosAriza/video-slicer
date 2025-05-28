@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/store/index';
-import { setFullVideoDuration } from '@/store/clipsSlice';
+import { setFullVideoDuration, setCurrentClip } from '@/store/clipsSlice';
 import { RefObject } from 'react';
 import { VIDEO_URL } from '@/constants/video';
 
@@ -33,13 +33,40 @@ export default function VideoPlayer({ videoRef }: Props) {
     }
   };
 
+  const onTimeUpdate = () => {
+  if (!videoRef.current || !currentClip || currentClip.id === 'full-video') return;
+
+  const current = videoRef.current.currentTime;
+
+  if (current >= currentClip.endTime) {
+    videoRef.current.pause(); // Asegúrate de detener el video justo en el límite
+
+    // Evita múltiples ejecuciones con una bandera local o condición
+    if (!videoRef.current.dataset.finished) {
+      videoRef.current.dataset.finished = 'true';
+
+      setTimeout(() => {
+        const index = clips.findIndex((c) => c.id === currentClip.id);
+        const next = clips[index + 1];
+        if (next) {
+          videoRef.current!.dataset.finished = '';
+          dispatch(setCurrentClip(next.id));
+        }
+      }, 3000);
+    }
+  }
+};
+
+
   return (
     <video
+      key={currentClip?.id}
       ref={videoRef}
       controls
       src={`${VIDEO_URL}#t=${currentClip?.startTime},${currentClip?.endTime}`}
       className="w-full mb-4"
       onLoadedMetadata={onLoadedMetadata}
+      onTimeUpdate={onTimeUpdate} //
     />
   );
 }
