@@ -35,7 +35,7 @@ const clipsSlice = createSlice({
     },
     updateClip: (state, action: PayloadAction<Clip>) => {
       const index = state.clips.findIndex((clip) => clip.id === action.payload.id);
-      if (index !== -1) state.clips[index] = action.payload;
+      if (index !== -1) state.clips[index] = { ...state.clips[index], ...action.payload  };// action.payload;
     },
     setCurrentClip: (state, action: PayloadAction<string>) => {
       state.currentClipId = action.payload;
