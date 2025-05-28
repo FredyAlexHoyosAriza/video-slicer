@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 interface ClipsState {
   clips: Clip[];
   currentClipId: string | null;
+  editForm: boolean;
 }
 
 const initialState: ClipsState = {
@@ -17,6 +18,7 @@ const initialState: ClipsState = {
     },
   ],
   currentClipId: 'full-video',
+  editForm: false
 };
 
 const clipsSlice = createSlice({
@@ -40,11 +42,14 @@ const clipsSlice = createSlice({
     setCurrentClip: (state, action: PayloadAction<string>) => {
       state.currentClipId = action.payload;
     },
+    setEditForm: (state, action: PayloadAction<boolean>) => {
+      state.editForm = action.payload;
+    }
   },
 });
 
 // No son reducers "addClip", etc, sino "action creators":
-export const { addClip, deleteClip, updateClip, setCurrentClip, setFullVideoDuration } = clipsSlice.actions;
+export const { addClip, deleteClip, updateClip, setCurrentClip, setFullVideoDuration, setEditForm } = clipsSlice.actions;
 // Devuelve algo como:
 // {
 //   type: 'clips/addClip',

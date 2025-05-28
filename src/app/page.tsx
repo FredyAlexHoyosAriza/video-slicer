@@ -1,17 +1,24 @@
+// src/app/page.tsx
+'use client';
+
 import ClipForm from '@/components/ClipForm';
 import ClipList from '@/components/ClipList';
 import VideoPlayer from '@/components/VideoPlayer';
+import { useRef } from 'react';
 
 export default function HomePage() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
   return (
     <main className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">🎞️ Video Clip Slicer</h1>
-      <VideoPlayer />
+      <VideoPlayer videoRef={videoRef} />
       <ClipForm />
-      <ClipList />
+      <ClipList videoRef={videoRef} />
     </main>
   );
 }
+
 
 // import Image from "next/image";
 // export default function Home() {

@@ -1,15 +1,32 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteClip, setCurrentClip } from "@/store/clipsSlice";
+import { deleteClip, setCurrentClip, setEditForm } from "@/store/clipsSlice";
 import { RootState } from "@/store/index";
+import { RefObject } from "react";
+import { VIDEO_URL } from '@/constants/video';
 
-export default function ClipList() {
+interface Props {
+  videoRef: RefObject<HTMLVideoElement | null>;
+}
+
+export default function ClipList({ videoRef }: Props) {
   const dispatch = useDispatch();
-  const clips = useSelector((state: RootState) => state.clips.clips);
-  const currentClipId = useSelector(
-    (state: RootState) => state.clips.currentClipId
+  const { clips, currentClipId, editForm } = useSelector(
+    (state: RootState) => state.clips
   );
+
+  const handlePlay = (clipId: string, startTime: number) => {
+    if (clipId === currentClipId) {
+      if (videoRef.current) {
+        const currentClip = clips.find((clip) => clip.id === currentClipId);
+        videoRef.current.src = `${VIDEO_URL}#t=${currentClip?.startTime},${currentClip?.endTime}`;
+        // videoRef.current.play();
+      }
+    } else {
+      dispatch(setCurrentClip(clipId));
+    }
+  };
 
   return (
     <div className="space-y-2">
@@ -30,9 +47,18 @@ export default function ClipList() {
               </div>
             </div>
             <div className="flex gap-2">
-              <button
+              {/* <button
                 className="btn-sm"
                 onClick={() => dispatch(setCurrentClip(clip.id))}
+              >
+                Play
+              </button> */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePlay(clip.id, clip.startTime);
+                }}
+                className="btn-sm"
               >
                 Play
               </button>
@@ -41,11 +67,16 @@ export default function ClipList() {
                   <button
                     className="btn-sm"
                     onClick={() => {
-                      dispatch(setCurrentClip(clip.id));
+                      if (editForm) dispatch(setEditForm(false));//Cancel
+                      else {//Edit
+                        dispatch(setEditForm(true));
+                        if (currentClipId !== clip.id)
+                          dispatch(setCurrentClip(clip.id));
+                      }
                       // Aquí no es necesario cambiar nada más: el formulario sabrá que estamos editando
                     }}
                   >
-                    Edit
+                    {`${editForm ? "Cancel" : "Edit"}`}
                   </button>
                   <button
                     className="btn-sm text-red-600"
