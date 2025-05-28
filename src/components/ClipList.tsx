@@ -1,27 +1,26 @@
 'use client';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store/index';
-import { deleteClip } from '../store/clipsSlice';
+import { RootState } from '@/store/index';
+import { deleteClip, setCurrentClip } from '@/store/clipsSlice';
 
 export default function ClipList() {
   const clips = useSelector((state: RootState) => state.clips.clips);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-2">
       {clips.map((clip) => (
-        <li key={clip.id} className="border p-4 rounded shadow">
-          <p className="font-bold">{clip.name}</p>
-          <p>
-            {clip.startTime}s - {clip.endTime}s
-          </p>
-          <button
-            onClick={() => dispatch(deleteClip(clip.id))}
-            className="mt-2 bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-          >
-            Eliminar
-          </button>
+        <li key={clip.id} className="p-2 border rounded">
+          <div className="flex justify-between items-center">
+            <span>{clip.name} ({clip.startTime}s - {clip.endTime}s)</span>
+            <div className="space-x-2">
+              <button onClick={() => dispatch(setCurrentClip(clip.id))} className="btn-sm">Play</button>
+              {clip.id !== 'full-video' && (
+                <button onClick={() => dispatch(deleteClip(clip.id))} className="btn-sm text-red-600">Delete</button>
+              )}
+            </div>
+          </div>
         </li>
       ))}
     </ul>

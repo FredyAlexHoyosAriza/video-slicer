@@ -14,8 +14,8 @@ import { ReduxProvider } from "@/providers/ReduxProvider";
 // });
 
 export const metadata: Metadata = {
-  title: 'Video Clip Editor',
-  description: 'Slice and manage video clips easily.',
+  title: 'Video Clip Slicer',
+  description: 'Slice video into clips using media fragments',//'Slice and manage video clips easily.',
 };
 
 export default function RootLayout({

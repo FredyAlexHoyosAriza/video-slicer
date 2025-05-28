@@ -1,61 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { addClip } from '../store/clipsSlice';
-import { AppDispatch } from '../store/index';
+import { addClip } from '@/store/clipsSlice';
 
 export default function ClipForm() {
-  const dispatch = useDispatch<AppDispatch>();
   const [name, setName] = useState('');
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!name || !start || !end) return;
-
-    dispatch(
-      addClip({
-        id: uuidv4(),
-        name,
-        startTime: parseFloat(start),
-        endTime: parseFloat(end),
-      })
-    );
-
-    setName('');
-    setStart('');
-    setEnd('');
+    if (name && startTime < endTime) {
+      dispatch(addClip({ name, startTime, endTime }));
+      setName('');
+      setStartTime(0);
+      setEndTime(0);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-2">
-      <input
-        type="text"
-        placeholder="Nombre del clip"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="border p-2 rounded"
-      />
-      <input
-        type="number"
-        placeholder="Tiempo de inicio (s)"
-        value={start}
-        onChange={(e) => setStart(e.target.value)}
-        className="border p-2 rounded"
-      />
-      <input
-        type="number"
-        placeholder="Tiempo de fin (s)"
-        value={end}
-        onChange={(e) => setEnd(e.target.value)}
-        className="border p-2 rounded"
-      />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        Agregar Clip
-      </button>
+    <form onSubmit={handleSubmit} className="space-y-2 mb-4">
+      <input value={name} onChange={(e) => setName(e.target.value)} className="input" placeholder="Name" required />
+      <input type="number" value={startTime} onChange={(e) => setStartTime(Number(e.target.value))} className="input" placeholder="Start Time (s)" />
+      <input type="number" value={endTime} onChange={(e) => setEndTime(Number(e.target.value))} className="input" placeholder="End Time (s)" />
+      <button type="submit" className="btn">Add Clip</button>
     </form>
   );
 }

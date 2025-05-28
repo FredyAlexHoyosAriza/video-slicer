@@ -1,14 +1,11 @@
-'use client';
-
-import '@/styles/globals.css';
-import VideoPlayer from '@/components/VideoPlayer';
-import ClipList from '@/components/ClipList';
 import ClipForm from '@/components/ClipForm';
+import ClipList from '@/components/ClipList';
+import VideoPlayer from '@/components/VideoPlayer';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Gestor de Clips de Video</h1>
+    <main className="max-w-4xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">🎞️ Video Clip Slicer</h1>
       <VideoPlayer />
       <ClipForm />
       <ClipList />

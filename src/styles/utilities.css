@@ -1,0 +1,14 @@
+/* indica que las clases definidas pertenecen a la capa de utilidades de Tailwind */
+@layer utilities;
+
+.input {
+  @apply w-full border px-2 py-1 rounded;
+}
+
+.btn {
+  @apply bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700;
+}
+
+.btn-sm {
+  @apply bg-gray-200 px-2 py-1 rounded hover:bg-gray-300;
+}
