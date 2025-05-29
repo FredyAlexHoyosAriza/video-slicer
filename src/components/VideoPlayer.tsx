@@ -37,7 +37,7 @@ export default function VideoPlayer({ videoRef, clips }: Props) {
     if (editForm && videoRef.current && !videoRef.current.paused) {
       videoRef.current.pause();
     }
-  }, [editForm]);
+  }, [editForm, videoRef]);
 
   const onLoadedMetadata = () => {
     if (videoRef.current && !editForm) {

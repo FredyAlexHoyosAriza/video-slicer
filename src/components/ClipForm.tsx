@@ -32,7 +32,7 @@ export default function ClipForm() {
     } else {
       resetForm();
     }
-  }, [editForm]);
+  }, [editForm, currentClip]);
 
   const addTag = () => {
     const trimmed = tagInput.trim();
