@@ -97,7 +97,7 @@ export default function VideoPlayer({ videoRef, clips }: Props) {
         className="w-full mb-4"
         onLoadedMetadata={onLoadedMetadata}
         onTimeUpdate={onTimeUpdate}
-        onPlay={(e) => {
+        onPlay={() => {
           if (editForm && videoRef.current) {
             videoRef.current.pause();
           }
