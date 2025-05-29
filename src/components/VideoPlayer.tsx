@@ -26,7 +26,7 @@ export default function VideoPlayer({ videoRef }: Props) {
       setIsWaiting(false);
       setCountdown(null);
     }
-  }, [currentClipId]);
+  }, [currentClipId, currentClip, videoRef]);
 
   const onLoadedMetadata = () => {
     if (videoRef.current) {

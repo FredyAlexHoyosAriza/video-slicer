@@ -18,7 +18,7 @@ export default function ClipList({ videoRef, clips }: Props) {
     (state: RootState) => state.clips
   );
 
-  const handlePlay = (clipId: string, startTime: number) => {
+  const handlePlay = (clipId: string) => {
     if (clipId === currentClipId) {
       const currentClip = clips.find((clip) => clip.id === currentClipId);
       if (videoRef.current && currentClip) {
@@ -63,7 +63,7 @@ export default function ClipList({ videoRef, clips }: Props) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  handlePlay(clip.id, clip.startTime);
+                  handlePlay(clip.id);
                 }}
                 className="btn-sm"
               >

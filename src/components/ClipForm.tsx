@@ -5,11 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addClip,
   updateClip,
-  setCurrentClip,
   setEditForm,
 } from "@/store/clipsSlice";
 import { RootState } from "@/store/index";
-import { Clip } from "@/types";
 
 export default function ClipForm() {
   const dispatch = useDispatch();

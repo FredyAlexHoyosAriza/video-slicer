@@ -18,5 +18,5 @@ export function useLoadClips() {
         console.error('Error loading clips from localStorage:', err);
       }
     }
-  }, []);
+  }, [dispatch]);
 }
