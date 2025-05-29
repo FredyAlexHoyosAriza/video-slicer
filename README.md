@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Video Clip Slicer
 
-## Getting Started
+**Video Clip Slicer** es una aplicación moderna que permite a los usuarios dividir un video en múltiples clips personalizados utilizando fragmentos temporales (`media fragments`). Los clips pueden etiquetarse, filtrarse y reproducirse con precisión, todo desde una interfaz intuitiva construida con React y Redux Toolkit.
 
-First, run the development server:
+Este proyecto está en evolución activa. Actualmente, la rama `main` es la principal y está desplegada en Vercel.
+
+## Características
+
+- **Reproductor de Video**: Permite seleccionar y reproducir fragmentos (`start` / `end`) del video cargado.
+- **Gestión de Clips**: Crea, edita, elimina y selecciona clips.
+- **Etiquetado y Filtrado**: Asigna etiquetas a los clips y búscalos fácilmente por nombre.
+- **Interfaz Moderna y Responsive**: UI construida con Tailwind CSS v4 y componentes de React.
+- **Gestión de Estado Centralizado**: Implementada con Redux Toolkit para un control global de la aplicación.
+- **Preparado para Drag and Drop**: Sistema de reordenamiento visual de clips en desarrollo.
+
+## Tecnologías Utilizadas
+
+### Frontend
+
+- **Next.js 15.3.2** – Framework moderno basado en React, con App Router.
+- **React 18** – Biblioteca para interfaces interactivas.
+- **TypeScript 5** – Tipado estático para robustez y mantenibilidad.
+- **Redux Toolkit** – Manejo de estado global con slices y store configurado.
+- **Tailwind CSS v4** – Utilidades CSS modernas con soporte para variables CSS.
+
+## Instalación y Configuración
+
+En el directorio del proyecto, sigue estos pasos:
+
+### 1. Clonar el repositorio
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/FredyAlexHoyosAriza/video-slicer.git
+cd video-clip-slicer
