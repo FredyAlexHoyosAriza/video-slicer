@@ -34,7 +34,6 @@ export default function ClipList({ videoRef, clips }: Props) {
     <div className="space-y-2">
       <h2 className="text-lg font-semibold">🎬 Clip List</h2>
       {clips
-        // .filter((clip) => clip.id !== "full-video")
         .map((clip) => (
           <div
             key={clip.id}
@@ -60,15 +59,17 @@ export default function ClipList({ videoRef, clips }: Props) {
               </div>
             </div>
             <div className="flex gap-2">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePlay(clip.id);
-                }}
-                className="btn-sm"
-              >
-                Play
-              </button>
+              {!(editForm && currentClipId === clip.id) && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePlay(clip.id);
+                  }}
+                  className="btn-sm"
+                >
+                  Play
+                </button>
+              )}
               {clip.id !== "full-video" && (
                 <>
                   <button
@@ -84,7 +85,9 @@ export default function ClipList({ videoRef, clips }: Props) {
                       // Aquí no es necesario cambiar nada más: el formulario sabrá que estamos editando
                     }}
                   >
-                    {`${editForm && currentClipId === clip.id ? "Cancel" : "Edit"}`}
+                    {`${
+                      editForm && currentClipId === clip.id ? "Cancel" : "Edit"
+                    }`}
                   </button>
                   <button
                     className="btn-sm text-red-600"
