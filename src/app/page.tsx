@@ -3,17 +3,36 @@
 import ClipForm from '@/components/ClipForm';
 import ClipList from '@/components/ClipList';
 import VideoPlayer from '@/components/VideoPlayer';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLoadClips } from '@/hooks/useLoadClips';
+import { usePersistClips } from '@/hooks/usePersistClips';
+import TagSearch from '@/components/TagSearch';
+import { Clip } from '@/types/index';
+import { RootState } from '@/store';
 
 export default function HomePage() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useLoadClips();
+  const clips = useSelector((state: RootState) => state.clips.clips);
+  const filteredClips: Clip[] = searchTerm.trim()
+    ? clips.filter((clip) =>
+        clip.tags?.some((tag) =>
+          tag.toLowerCase().includes(searchTerm.trim().toLowerCase())
+        )
+      )
+    : clips;
+  usePersistClips();
 
   return (
     <main className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">🎞️ Video Clip Slicer</h1>
       <VideoPlayer videoRef={videoRef} />
       <ClipForm />
-      <ClipList videoRef={videoRef} />
+      <TagSearch value={searchTerm} onChange={setSearchTerm} />
+      <ClipList clips={filteredClips} videoRef={videoRef} />
     </main>
   );
 }

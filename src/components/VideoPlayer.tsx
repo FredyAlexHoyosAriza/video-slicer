@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function VideoPlayer({ videoRef }: Props) {
-  const { clips, currentClipId } = useSelector((state: RootState) => state.clips);
+  const { clips, currentClipId, editForm } = useSelector((state: RootState) => state.clips);
   const dispatch = useDispatch();
   const currentClip = clips.find((clip) => clip.id === currentClipId);
   const [isWaiting, setIsWaiting] = useState(false);
@@ -36,7 +36,7 @@ export default function VideoPlayer({ videoRef }: Props) {
   };
 
   const onTimeUpdate = () => {
-    if (!videoRef.current || !currentClip || currentClip.id === 'full-video') return;
+    if (!videoRef.current || !currentClip || currentClip.id === 'full-video' || editForm) return;
 
     const current = videoRef.current.currentTime;
 
