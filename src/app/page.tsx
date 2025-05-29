@@ -29,7 +29,7 @@ export default function HomePage() {
   return (
     <main className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">🎞️ Video Clip Slicer</h1>
-      <VideoPlayer videoRef={videoRef} />
+      <VideoPlayer clips={filteredClips} videoRef={videoRef} />
       <ClipForm />
       <TagSearch value={searchTerm} onChange={setSearchTerm} />
       <ClipList clips={filteredClips} videoRef={videoRef} />

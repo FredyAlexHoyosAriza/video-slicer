@@ -51,6 +51,7 @@ export default function ClipForm() {
     setStartTime(0);
     setEndTime(0);
     setTags([]);
+    setTagInput("");
     if (editForm) dispatch(setEditForm(false));
     // else dispatch(setCurrentClip('full-video'));
   };

@@ -7,13 +7,15 @@ import { setFullVideoDuration, setCurrentClip } from '@/store/clipsSlice';
 import { RefObject } from 'react';
 import { RingLoader } from 'react-spinners';
 import { VIDEO_URL } from '@/constants/video';
+import { Clip } from "@/types/index";
 
 interface Props {
   videoRef: RefObject<HTMLVideoElement | null>;
+  clips: Clip[];
 }
 
-export default function VideoPlayer({ videoRef }: Props) {
-  const { clips, currentClipId, editForm } = useSelector((state: RootState) => state.clips);
+export default function VideoPlayer({ videoRef, clips }: Props) {
+  const { currentClipId, editForm } = useSelector((state: RootState) => state.clips);
   const dispatch = useDispatch();
   const currentClip = clips.find((clip) => clip.id === currentClipId);
   const [isWaiting, setIsWaiting] = useState(false);
