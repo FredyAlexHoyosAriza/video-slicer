@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addClip,
@@ -22,7 +22,7 @@ export default function ClipForm() {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(() => currentClip?.tags ?? []);
   
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setName("");
     setStartTime(0);
     setEndTime(0);
@@ -30,7 +30,7 @@ export default function ClipForm() {
     setTagInput("");
     if (editForm) dispatch(setEditForm(false));
     // else dispatch(setCurrentClip('full-video'));
-  };
+  }, []);
 
   useEffect(() => {
     if (editForm && currentClip) {
