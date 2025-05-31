@@ -1,12 +1,8 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addClip,
-  updateClip,
-  setEditForm,
-} from "@/store/clipsSlice";
+import { addClip, updateClip, setEditForm } from "@/store/clipsSlice";
 import { RootState } from "@/store/index";
 
 export default function ClipForm() {
@@ -21,8 +17,8 @@ export default function ClipForm() {
   const [endTime, setEndTime] = useState(0);
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(() => currentClip?.tags ?? []);
-  
-  const resetForm = useCallback(() => {
+
+  const resetForm = () => {
     setName("");
     setStartTime(0);
     setEndTime(0);
@@ -30,7 +26,7 @@ export default function ClipForm() {
     setTagInput("");
     if (editForm) dispatch(setEditForm(false));
     // else dispatch(setCurrentClip('full-video'));
-  }, []);
+  };
 
   useEffect(() => {
     if (editForm && currentClip) {
@@ -39,9 +35,13 @@ export default function ClipForm() {
       setEndTime(currentClip.endTime);
       setTags(currentClip.tags);
     } else {
-      resetForm();
+      setName("");
+      setStartTime(0);
+      setEndTime(0);
+      setTags([]);
+      setTagInput("");
     }
-  }, [editForm, currentClip, resetForm]);
+  }, [editForm, currentClip]); // , resetForm
 
   const addTag = () => {
     const trimmed = tagInput.trim();

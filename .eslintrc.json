@@ -2,12 +2,9 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "overrides": [
     {
-      "files": ["src/types/global.d.ts"],
-      "rules": {
-        "no-var": "off"  // Desactiva la regla no-var para este archivo específico
-      }
+      "files": ["src/types/global.d.ts"]
     }
   ]
 }
 
-// Para usar ESlint ejecutar en terminal: yarn eslint --ext ".ts,.tsx" .
+// Para usar ESlint ejecutar en terminal: yarn eslint src --ext ".ts,.tsx" .
